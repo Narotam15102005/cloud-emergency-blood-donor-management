@@ -1,1 +1,1243 @@
+/* =========================================
+   BLOODCONNECT
+   Cloud-Based Emergency Blood Donor System
+   ========================================= */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background: #f8fafc;
+    color: #172033;
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   NAVBAR
+   ========================================= */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px 6%;
+
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(15px);
+
+    border-bottom: 1px solid #e8edf3;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffe7eb;
+    border-radius: 14px;
+
+    font-size: 25px;
+
+    animation: heartbeat 1.8s infinite;
+}
+
+.logo h2 {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.logo span {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #7b8494;
+
+    font-size: 11px;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 28px;
+}
+
+.navbar nav a {
+    color: #4b5565;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.navbar nav a:hover {
+    color: #e63946;
+}
+
+.emergency-nav {
+    border: none;
+
+    background: #e63946;
+    color: white;
+
+    padding: 11px 18px;
+
+    border-radius: 10px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.emergency-nav:hover {
+    background: #c92331;
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 20px rgba(230, 57, 70, 0.25);
+}
+
+
+/* =========================================
+   HERO
+   ========================================= */
+
+.hero {
+    min-height: 640px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 80px 8%;
+
+    background:
+        radial-gradient(circle at 85% 30%, #ffe5e9 0%, transparent 30%),
+        linear-gradient(135deg, #ffffff 0%, #fff8f9 100%);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.hero-content {
+    max-width: 650px;
+
+    animation: slideLeft 0.9s ease;
+}
+
+.badge {
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    border-radius: 50px;
+
+    background: #fff0f2;
+    color: #d6293c;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+
+    margin-bottom: 22px;
+}
+
+.hero h1 {
+    font-size: clamp(45px, 6vw, 78px);
+
+    line-height: 1.04;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    display: block;
+
+    color: #e63946;
+
+    position: relative;
+}
+
+.hero p {
+    max-width: 600px;
+
+    color: #667085;
+
+    line-height: 1.8;
+
+    font-size: 16px;
+
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+
+    flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+    border: none;
+
+    padding: 14px 23px;
+
+    border-radius: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.primary-btn {
+    background: #e63946;
+    color: white;
+
+    box-shadow: 0 10px 25px rgba(230, 57, 70, 0.22);
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 15px 30px rgba(230, 57, 70, 0.3);
+}
+
+.secondary-btn {
+    background: white;
+
+    color: #263142;
+
+    border: 1px solid #e5e7eb;
+}
+
+.secondary-btn:hover {
+    border-color: #e63946;
+    color: #e63946;
+
+    transform: translateY(-3px);
+}
+
+.live-status {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    margin-top: 28px;
+
+    font-size: 12px;
+
+    color: #667085;
+}
+
+.pulse {
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.12);
+
+    animation: pulse 1.6s infinite;
+}
+
+.divider {
+    width: 1px;
+    height: 15px;
+
+    background: #d5d9e0;
+
+    margin: 0 5px;
+}
+
+
+/* =========================================
+   HERO VISUAL
+   ========================================= */
+
+.hero-visual {
+    width: 430px;
+    height: 430px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    animation: float 4s ease-in-out infinite;
+}
+
+.blood-orb {
+    width: 280px;
+    height: 280px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(circle at 35% 30%, #ff7781, #e63946 55%, #a91422);
+
+    box-shadow:
+        0 30px 70px rgba(230, 57, 70, 0.28),
+        inset -20px -20px 50px rgba(90, 0, 10, 0.15);
+
+    position: relative;
+
+    animation: orbPulse 3s ease-in-out infinite;
+}
+
+.drop {
+    font-size: 100px;
+
+    filter: drop-shadow(0 15px 15px rgba(80, 0, 0, 0.25));
+
+    animation: dropFloat 3s ease-in-out infinite;
+}
+
+.orbit {
+    position: absolute;
+
+    border: 1px solid rgba(230, 57, 70, 0.2);
+
+    border-radius: 50%;
+}
+
+.orbit-one {
+    width: 350px;
+    height: 350px;
+
+    animation: rotate 12s linear infinite;
+}
+
+.orbit-two {
+    width: 420px;
+    height: 420px;
+
+    border-style: dashed;
+
+    animation: rotateReverse 18s linear infinite;
+}
+
+.floating-card {
+    position: absolute;
+
+    background: white;
+
+    padding: 17px 22px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 15px 40px rgba(25, 35, 50, 0.12);
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+
+    animation: cardFloat 4s ease-in-out infinite;
+}
+
+.floating-card strong {
+    font-size: 22px;
+}
+
+.floating-card span {
+    color: #7a8494;
+    font-size: 11px;
+}
+
+.card-one {
+    top: 30px;
+    left: 5px;
+}
+
+.card-two {
+    right: -10px;
+    bottom: 50px;
+
+    animation-delay: 1.2s;
+}
+
+
+/* =========================================
+   STATISTICS
+   ========================================= */
+
+.statistics {
+    max-width: 1150px;
+
+    margin: -45px auto 0;
+
+    position: relative;
+    z-index: 10;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+
+    padding: 0 20px;
+}
+
+.stat-card {
+    background: white;
+
+    border: 1px solid #edf0f4;
+
+    border-radius: 17px;
+
+    padding: 22px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    box-shadow: 0 12px 35px rgba(20, 30, 50, 0.06);
+
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow: 0 20px 40px rgba(20, 30, 50, 0.1);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: #fff0f2;
+
+    font-size: 22px;
+}
+
+.stat-card h2 {
+    font-size: 22px;
+}
+
+.stat-card p {
+    color: #7c8594;
+
+    font-size: 11px;
+
+    margin-top: 4px;
+}
+
+
+/* =========================================
+   GENERAL SECTION
+   ========================================= */
+
+.section {
+    max-width: 1150px;
+
+    margin: auto;
+
+    padding: 100px 25px;
+}
+
+.section-heading {
+    text-align: center;
+
+    margin-bottom: 50px;
+}
+
+.section-heading span {
+    color: #e63946;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.section-heading h2 {
+    font-size: 38px;
+
+    margin: 10px 0 12px;
+}
+
+.section-heading p {
+    color: #727c8d;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   BLOOD GROUPS
+   ========================================= */
+
+.blood-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+.blood-card {
+    border: 1px solid #e9edf2;
+
+    background: white;
+
+    border-radius: 17px;
+
+    padding: 25px;
+
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    transition: 0.35s;
+
+    box-shadow: 0 8px 25px rgba(20, 30, 50, 0.04);
+}
+
+.blood-card:hover {
+    transform: translateY(-8px) scale(1.02);
+
+    border-color: #f19aa2;
+
+    box-shadow: 0 18px 35px rgba(230, 57, 70, 0.12);
+}
+
+.blood-card div {
+    font-size: 35px;
+
+    margin-bottom: 8px;
+
+    transition: 0.3s;
+}
+
+.blood-card:hover div {
+    transform: scale(1.2);
+}
+
+.blood-card strong {
+    font-size: 25px;
+
+    color: #e63946;
+}
+
+.blood-card span {
+    font-size: 11px;
+
+    color: #7b8492;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================
+   SEARCH RESULT
+   ========================================= */
+
+.search-result {
+    margin-top: 35px;
+
+    padding: 25px;
+
+    border-radius: 16px;
+
+    background: #fff8f9;
+
+    border: 1px solid #ffe0e4;
+
+    display: none;
+
+    animation: fadeUp 0.5s ease;
+}
+
+.search-result.show {
+    display: block;
+}
+
+.search-result h3 {
+    margin-bottom: 7px;
+
+    color: #d6293c;
+}
+
+.search-result p {
+    color: #6c7585;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   EMERGENCY SECTION
+   ========================================= */
+
+.emergency-section {
+    margin: 20px 6%;
+
+    padding: 45px;
+
+    border-radius: 25px;
+
+    background:
+        radial-gradient(circle at 90% 50%, rgba(255,255,255,0.1), transparent 30%),
+        linear-gradient(120deg, #b91527, #e63946);
+
+    color: white;
+
+    box-shadow: 0 25px 60px rgba(190, 30, 50, 0.2);
+
+    overflow: hidden;
+}
+
+.emergency-content {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 25px;
+}
+
+.emergency-icon {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255,255,255,0.15);
+
+    border-radius: 18px;
+
+    font-size: 30px;
+
+    animation: pulse 2s infinite;
+}
+
+.emergency-content > div:nth-child(2) {
+    flex: 1;
+}
+
+.emergency-content span {
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    opacity: 0.8;
+}
+
+.emergency-content h2 {
+    font-size: 30px;
+
+    margin: 5px 0;
+}
+
+.emergency-content p {
+    font-size: 13px;
+
+    opacity: 0.85;
+}
+
+.emergency-button {
+    border: none;
+
+    background: white;
+
+    color: #d62839;
+
+    padding: 14px 20px;
+
+    border-radius: 10px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.emergency-button:hover {
+    transform: translateY(-3px) scale(1.02);
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+
+/* =========================================
+   FEATURES
+   ========================================= */
+
+.features-section {
+    padding-bottom: 110px;
+}
+
+.feature-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 20px;
+}
+
+.feature-card {
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 18px;
+
+    border: 1px solid #e9edf2;
+
+    transition: 0.35s;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow: 0 20px 40px rgba(20,30,50,0.08);
+}
+
+.feature-icon {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 14px;
+
+    background: #fff0f2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+
+    margin-bottom: 18px;
+}
+
+.feature-card h3 {
+    font-size: 17px;
+
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    color: #788292;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+footer {
+    text-align: center;
+
+    padding: 45px 20px;
+
+    background: #151923;
+
+    color: white;
+}
+
+.footer-logo {
+    font-size: 20px;
+
+    font-weight: 800;
+
+    margin-bottom: 10px;
+}
+
+footer p {
+    color: #9299a6;
+
+    font-size: 12px;
+}
+
+footer .copyright {
+    margin-top: 18px;
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   MODAL
+   ========================================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2000;
+
+    background: rgba(15, 20, 30, 0.65);
+
+    backdrop-filter: blur(8px);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+
+    animation: fadeIn 0.25s ease;
+}
+
+.modal-box {
+    width: 100%;
+
+    max-width: 480px;
+
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 35px;
+
+    position: relative;
+
+    box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+
+    animation: modalUp 0.4s ease;
+}
+
+.close-btn {
+    position: absolute;
+
+    right: 20px;
+    top: 18px;
+
+    border: none;
+
+    background: #f1f3f6;
+
+    width: 35px;
+    height: 35px;
+
+    border-radius: 50%;
+
+    font-size: 23px;
+
+    cursor: pointer;
+
+    color: #4d5562;
+}
+
+.modal-icon {
+    font-size: 40px;
+
+    margin-bottom: 10px;
+}
+
+.modal-box h2 {
+    font-size: 25px;
+
+    margin-bottom: 8px;
+}
+
+.modal-box > p {
+    color: #7b8492;
+
+    font-size: 13px;
+
+    margin-bottom: 25px;
+}
+
+.modal-box form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.modal-box label {
+    font-size: 12px;
+
+    font-weight: 700;
+
+    margin-top: 7px;
+}
+
+.modal-box input,
+.modal-box select {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 1px solid #dfe3e8;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    font-family: inherit;
+
+    transition: 0.3s;
+}
+
+.modal-box input:focus,
+.modal-box select:focus {
+    border-color: #e63946;
+
+    box-shadow: 0 0 0 4px rgba(230,57,70,0.08);
+}
+
+.submit-btn {
+    border: none;
+
+    background: #e63946;
+
+    color: white;
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    font-weight: 800;
+
+    margin-top: 15px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background: #c92331;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+
+@keyframes heartbeat {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+@keyframes pulse {
+
+    0% {
+        box-shadow: 0 0 0 0 rgba(34,197,94,0.35);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(34,197,94,0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(34,197,94,0);
+    }
+}
+
+@keyframes slideLeft {
+
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes float {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+@keyframes orbPulse {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.04);
+    }
+}
+
+@keyframes dropFloat {
+
+    0%, 100% {
+        transform: translateY(0) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(5deg);
+    }
+}
+
+@keyframes rotate {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotateReverse {
+
+    from {
+        transform: rotate(360deg);
+    }
+
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes cardFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes modalUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
+
+@media (max-width: 950px) {
+
+    .navbar nav {
+        display: none;
+    }
+
+    .hero {
+        flex-direction: column;
+
+        text-align: center;
+
+        padding-top: 70px;
+    }
+
+    .hero-content {
+        max-width: 750px;
+    }
+
+    .hero-buttons,
+    .live-status {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        margin-top: 50px;
+
+        transform: scale(0.85);
+    }
+
+    .statistics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .blood-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .navbar {
+        padding: 12px 5%;
+    }
+
+    .emergency-nav {
+        padding: 9px 12px;
+
+        font-size: 11px;
+    }
+
+    .hero {
+        padding: 65px 6%;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+
+        letter-spacing: -2px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .hero-visual {
+        width: 330px;
+        height: 330px;
+
+        transform: scale(0.8);
+    }
+
+    .statistics {
+        grid-template-columns: 1fr;
+
+        margin-top: -20px;
+    }
+
+    .blood-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .emergency-section {
+        margin: 20px;
+
+        padding: 30px 22px;
+    }
+
+    .emergency-content {
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+    .section {
+        padding: 75px 20px;
+    }
+
+    .section-heading h2 {
+        font-size: 30px;
+    }
+
+    .modal-box {
+        padding: 28px 22px;
+    }
+}
