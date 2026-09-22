@@ -1,31 +1,32 @@
 /* =========================================
    BLOODCONNECT
-   JavaScript Functionality
-   ========================================= */
+   Emergency Blood Donor Management
+========================================= */
 
 
 /* =========================================
-   SCROLL TO DONORS
-   ========================================= */
+   DONOR SECTION
+========================================= */
 
 function scrollToDonors() {
 
-    const donorsSection = document.getElementById("donors");
-
-    donorsSection.scrollIntoView({
-        behavior: "smooth"
-    });
+    document
+        .getElementById("donors")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
 
 }
 
 
 /* =========================================
-   EMERGENCY REQUEST MODAL
-   ========================================= */
+   OPEN EMERGENCY MODAL
+========================================= */
 
 function openRequest() {
 
-    const modal = document.getElementById("requestModal");
+    const modal =
+        document.getElementById("requestModal");
 
     modal.classList.add("show");
 
@@ -34,9 +35,14 @@ function openRequest() {
 }
 
 
+/* =========================================
+   CLOSE EMERGENCY MODAL
+========================================= */
+
 function closeRequest() {
 
-    const modal = document.getElementById("requestModal");
+    const modal =
+        document.getElementById("requestModal");
 
     modal.classList.remove("show");
 
@@ -46,44 +52,54 @@ function closeRequest() {
 
 
 /* =========================================
-   CLOSE MODAL WHEN CLICKING OUTSIDE
-   ========================================= */
+   CLOSE WHEN CLICKING OUTSIDE
+========================================= */
 
-const requestModal = document.getElementById("requestModal");
+const requestModal =
+    document.getElementById("requestModal");
 
-requestModal.addEventListener("click", function(event) {
 
-    if (event.target === requestModal) {
+requestModal.addEventListener(
+    "click",
+    function(event) {
 
-        closeRequest();
+        if (event.target === requestModal) {
+
+            closeRequest();
+
+        }
 
     }
-
-});
+);
 
 
 /* =========================================
-   ESCAPE KEY CLOSES MODAL
-   ========================================= */
+   ESC KEY
+========================================= */
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener(
+    "keydown",
+    function(event) {
 
-    if (event.key === "Escape") {
+        if (event.key === "Escape") {
 
-        closeRequest();
+            closeRequest();
+
+        }
 
     }
-
-});
+);
 
 
 /* =========================================
-   BLOOD GROUP SEARCH
-   ========================================= */
+   BLOOD SEARCH
+========================================= */
 
 function searchBlood(group) {
 
-    const result = document.getElementById("search-result");
+    const result =
+        document.getElementById("search-result");
+
 
     const donorData = {
 
@@ -98,11 +114,16 @@ function searchBlood(group) {
 
     };
 
-    const count = donorData[group];
+
+    const count =
+        donorData[group];
+
 
     result.innerHTML = `
 
-        <h3>🩸 ${group} Blood Donors Available</h3>
+        <h3>
+            🩸 ${group} Blood Donors Available
+        </h3>
 
         <p>
             There are currently
@@ -113,14 +134,17 @@ function searchBlood(group) {
         <button
             class="primary-btn"
             style="margin-top:15px;"
-            onclick="openRequestWithGroup('${group}')"
-        >
+            onclick="openRequestWithGroup('${group}')">
+
             🚨 Request ${group} Blood
+
         </button>
 
     `;
 
+
     result.classList.add("show");
+
 
     result.scrollIntoView({
         behavior: "smooth",
@@ -131,36 +155,39 @@ function searchBlood(group) {
 
 
 /* =========================================
-   OPEN REQUEST WITH SELECTED BLOOD GROUP
-   ========================================= */
+   OPEN REQUEST WITH BLOOD GROUP
+========================================= */
 
 function openRequestWithGroup(group) {
 
     openRequest();
 
-    const bloodGroup = document.getElementById("bloodGroup");
-
-    bloodGroup.value = group;
+    document.getElementById("bloodGroup").value =
+        group;
 
 }
 
 
 /* =========================================
-   EMERGENCY REQUEST SUBMISSION
-   ========================================= */
+   SUBMIT EMERGENCY REQUEST
+========================================= */
 
 function submitRequest(event) {
 
     event.preventDefault();
 
+
     const patientName =
         document.getElementById("patientName").value.trim();
+
 
     const bloodGroup =
         document.getElementById("bloodGroup").value;
 
+
     const units =
         document.getElementById("units").value;
+
 
     const location =
         document.getElementById("location").value.trim();
@@ -173,195 +200,590 @@ function submitRequest(event) {
         location === ""
     ) {
 
-        alert("Please fill all the required fields.");
+        alert(
+            "Please fill all the required fields."
+        );
 
         return;
 
     }
 
 
+    /* Create unique request ID */
+
     const requestId =
         "REQ-" +
-        Math.floor(100000 + Math.random() * 900000);
+        Math.floor(
+            100000 +
+            Math.random() * 900000
+        );
 
+
+    /* Create request object */
+
+    const request = {
+
+        id: requestId,
+
+        patient: patientName,
+
+        bloodGroup: bloodGroup,
+
+        units: units,
+
+        location: location,
+
+        status: "URGENT",
+
+        time: new Date().toLocaleString()
+
+    };
+
+
+    /* Get existing requests */
+
+    let requests =
+        JSON.parse(
+            localStorage.getItem(
+                "bloodRequests"
+            )
+        ) || [];
+
+
+    /* Add newest request */
+
+    requests.unshift(request);
+
+
+    /* Save to browser */
+
+    localStorage.setItem(
+        "bloodRequests",
+        JSON.stringify(requests)
+    );
+
+
+    /* Close modal */
 
     closeRequest();
 
 
+    /* Clear form */
+
+    document
+        .querySelector("#requestModal form")
+        .reset();
+
+
+    /* Update screen */
+
+    displayRequests();
+
+
+    /* Update counter */
+
+    updateRequestCount();
+
+
+    /* Confirmation */
+
+    alert(
+
+        "🚨 Emergency Request Created Successfully!\n\n" +
+
+        "Request ID: " +
+        requestId +
+
+        "\nPatient: " +
+        patientName +
+
+        "\nBlood Group: " +
+        bloodGroup +
+
+        "\nUnits Required: " +
+        units +
+
+        "\nLocation: " +
+        location
+
+    );
+
+
+    /* Scroll to requests */
+
     setTimeout(function() {
 
-        alert(
-            "🚨 Emergency Request Created Successfully!\n\n" +
+        document
+            .getElementById(
+                "emergency-requests"
+            )
+            .scrollIntoView({
+                behavior: "smooth"
+            });
 
-            "Request ID: " + requestId + "\n" +
-
-            "Patient: " + patientName + "\n" +
-
-            "Blood Group: " + bloodGroup + "\n" +
-
-            "Units Required: " + units + "\n" +
-
-            "Location: " + location + "\n\n" +
-
-            "Compatible donors will be contacted."
-        );
-
-
-        document.querySelector("#requestModal form").reset();
-
-    }, 300);
+    }, 400);
 
 }
 
 
 /* =========================================
-   NAVBAR ACTIVE LINK
-   ========================================= */
+   DISPLAY REQUESTS
+========================================= */
 
-const sections =
-    document.querySelectorAll("section[id]");
+function displayRequests() {
 
-const navLinks =
-    document.querySelectorAll(".navbar nav a");
-
-
-window.addEventListener("scroll", function() {
-
-    let currentSection = "";
-
-    sections.forEach(function(section) {
-
-        const sectionTop =
-            section.offsetTop - 150;
-
-        const sectionHeight =
-            section.clientHeight;
-
-        if (
-            window.scrollY >= sectionTop &&
-            window.scrollY < sectionTop + sectionHeight
-        ) {
-
-            currentSection = section.getAttribute("id");
-
-        }
-
-    });
+    const container =
+        document.getElementById(
+            "requests-container"
+        );
 
 
-    navLinks.forEach(function(link) {
-
-        link.style.color = "";
-
-        if (
-            link.getAttribute("href") === "#" + currentSection
-        ) {
-
-            link.style.color = "#e63946";
-
-        }
-
-    });
-
-});
+    let requests =
+        JSON.parse(
+            localStorage.getItem(
+                "bloodRequests"
+            )
+        ) || [];
 
 
-/* =========================================
-   PAGE LOAD ANIMATION
-   ========================================= */
+    /* No requests */
 
-window.addEventListener("load", function() {
+    if (requests.length === 0) {
 
-    document.body.classList.add("loaded");
+        container.innerHTML = `
 
-});
+            <div class="empty-requests">
 
+                <div class="empty-icon">
+                    🩸
+                </div>
 
-/* =========================================
-   BUTTON RIPPLE EFFECT
-   ========================================= */
+                <h3>
+                    No Active Requests
+                </h3>
 
-document.addEventListener("click", function(event) {
+                <p>
+                    Emergency blood requests will appear here.
+                </p>
 
-    const button =
-        event.target.closest("button");
+            </div>
 
-    if (!button) {
+        `;
+
+        updateRequestCount();
+
         return;
+
     }
 
 
-    const ripple =
-        document.createElement("span");
+    /* Display every request */
 
-    ripple.style.position = "absolute";
+    container.innerHTML =
+        requests.map(function(request) {
 
-    ripple.style.width = "10px";
+            return `
 
-    ripple.style.height = "10px";
+                <div class="request-card">
 
-    ripple.style.borderRadius = "50%";
+                    <div class="request-top">
 
-    ripple.style.background =
-        "rgba(255,255,255,0.35)";
+                        <span class="request-id">
+                            ${request.id}
+                        </span>
 
-    ripple.style.pointerEvents = "none";
+                        <span class="request-status">
+                            🚨 ${request.status}
+                        </span>
 
-
-    button.style.position = "relative";
-
-    button.style.overflow = "hidden";
-
-
-    const rect =
-        button.getBoundingClientRect();
+                    </div>
 
 
-    ripple.style.left =
-        event.clientX - rect.left + "px";
+                    <div class="request-blood">
 
-    ripple.style.top =
-        event.clientY - rect.top + "px";
+                        <div class="request-blood-icon">
+                            🩸
+                        </div>
 
+                        <div>
 
-    button.appendChild(ripple);
+                            <h3>
+                                ${request.bloodGroup}
+                            </h3>
 
+                            <p>
+                                Blood Required
+                            </p>
 
-    ripple.animate(
-        [
-            {
-                transform: "translate(-50%, -50%) scale(0)",
-                opacity: 0.8
-            },
-            {
-                transform: "translate(-50%, -50%) scale(15)",
-                opacity: 0
-            }
-        ],
-        {
-            duration: 500,
-            easing: "ease-out"
-        }
-    );
+                        </div>
+
+                    </div>
 
 
-    setTimeout(function() {
+                    <div class="request-details">
 
-        ripple.remove();
 
-    }, 500);
+                        <div class="request-detail">
 
-});
+                            <span>
+                                Patient
+                            </span>
+
+                            <strong>
+                                ${request.patient}
+                            </strong>
+
+                        </div>
+
+
+
+                        <div class="request-detail">
+
+                            <span>
+                                Units Required
+                            </span>
+
+                            <strong>
+                                ${request.units}
+                                Unit(s)
+                            </strong>
+
+                        </div>
+
+
+
+                        <div class="request-detail">
+
+                            <span>
+                                Hospital / Location
+                            </span>
+
+                            <strong>
+                                ${request.location}
+                            </strong>
+
+                        </div>
+
+
+
+                        <div class="request-detail">
+
+                            <span>
+                                Requested At
+                            </span>
+
+                            <strong>
+                                ${request.time}
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <button
+                        class="remove-request-btn"
+                        onclick="removeRequest('${request.id}')">
+
+                        ✓ Mark Request Completed
+
+                    </button>
+
+
+                </div>
+
+            `;
+
+        }).join("");
+
+
+    updateRequestCount();
+
+}
 
 
 /* =========================================
-   CONSOLE INFORMATION
-   ========================================= */
+   REMOVE / COMPLETE REQUEST
+========================================= */
 
-console.log(
-    "🩸 BloodConnect Emergency Donor Network Loaded Successfully."
+function removeRequest(requestId) {
+
+    let requests =
+        JSON.parse(
+            localStorage.getItem(
+                "bloodRequests"
+            )
+        ) || [];
+
+
+    requests =
+        requests.filter(
+            function(request) {
+
+                return request.id !== requestId;
+
+            }
+        );
+
+
+    localStorage.setItem(
+        "bloodRequests",
+        JSON.stringify(requests)
+    );
+
+
+    displayRequests();
+
+    updateRequestCount();
+
+}
+
+
+/* =========================================
+   UPDATE REQUEST COUNTER
+========================================= */
+
+function updateRequestCount() {
+
+    const requests =
+        JSON.parse(
+            localStorage.getItem(
+                "bloodRequests"
+            )
+        ) || [];
+
+
+    const counter =
+        document.getElementById(
+            "requestCount"
+        );
+
+
+    if (counter) {
+
+        counter.textContent =
+            requests.length;
+
+    }
+
+}
+
+
+/* =========================================
+   LOAD DATA WHEN PAGE OPENS
+========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        displayRequests();
+
+        updateRequestCount();
+
+    }
 );
 
+
+/* =========================================
+   NAVIGATION ACTIVE LINK
+========================================= */
+
+const sections =
+    document.querySelectorAll(
+        "section[id]"
+    );
+
+
+const navLinks =
+    document.querySelectorAll(
+        ".navbar nav a"
+    );
+
+
+window.addEventListener(
+    "scroll",
+    function() {
+
+        let currentSection = "";
+
+
+        sections.forEach(
+            function(section) {
+
+                const sectionTop =
+                    section.offsetTop - 150;
+
+
+                const sectionHeight =
+                    section.clientHeight;
+
+
+                if (
+                    window.scrollY >= sectionTop &&
+                    window.scrollY <
+                    sectionTop + sectionHeight
+                ) {
+
+                    currentSection =
+                        section.getAttribute(
+                            "id"
+                        );
+
+                }
+
+            }
+        );
+
+
+        navLinks.forEach(
+            function(link) {
+
+                link.style.color = "";
+
+
+                if (
+                    link.getAttribute("href") ===
+                    "#" + currentSection
+                ) {
+
+                    link.style.color =
+                        "#e63946";
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================
+   BUTTON RIPPLE
+========================================= */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const button =
+            event.target.closest(
+                "button"
+            );
+
+
+        if (!button) {
+
+            return;
+
+        }
+
+
+        const ripple =
+            document.createElement(
+                "span"
+            );
+
+
+        ripple.style.position =
+            "absolute";
+
+
+        ripple.style.width =
+            "10px";
+
+
+        ripple.style.height =
+            "10px";
+
+
+        ripple.style.borderRadius =
+            "50%";
+
+
+        ripple.style.background =
+            "rgba(255,255,255,0.35)";
+
+
+        ripple.style.pointerEvents =
+            "none";
+
+
+        button.style.position =
+            "relative";
+
+
+        button.style.overflow =
+            "hidden";
+
+
+        const rect =
+            button.getBoundingClientRect();
+
+
+        ripple.style.left =
+            event.clientX -
+            rect.left +
+            "px";
+
+
+        ripple.style.top =
+            event.clientY -
+            rect.top +
+            "px";
+
+
+        button.appendChild(
+            ripple
+        );
+
+
+        ripple.animate(
+
+            [
+
+                {
+                    transform:
+                        "translate(-50%, -50%) scale(0)",
+
+                    opacity: 0.8
+                },
+
+                {
+                    transform:
+                        "translate(-50%, -50%) scale(15)",
+
+                    opacity: 0
+                }
+
+            ],
+
+            {
+
+                duration: 500,
+
+                easing: "ease-out"
+
+            }
+
+        );
+
+
+        setTimeout(
+            function() {
+
+                ripple.remove();
+
+            },
+            500
+        );
+
+    }
+);
+
+
 console.log(
-    "☁️ Cloud-ready Blood Donor Management System"
+    "🩸 BloodConnect loaded successfully."
 );
