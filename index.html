@@ -1,1 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>BloodConnect | Emergency Blood Donor Management</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            <div class="logo-icon">🩸</div>
+
+            <div>
+                <h2>BloodConnect</h2>
+                <span>Emergency Donor Network</span>
+            </div>
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#donors">Find Donor</a>
+            <a href="#request">Emergency Request</a>
+            <a href="#about">About</a>
+        </nav>
+
+        <button class="emergency-nav" onclick="openRequest()">
+            🚨 Emergency
+        </button>
+
+    </header>
+
+
+    <!-- ================= HERO SECTION ================= -->
+
+    <section id="home" class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                ● LIVE EMERGENCY DONOR NETWORK
+            </div>
+
+            <h1>
+                Every Drop Can
+                <span>Save a Life.</span>
+            </h1>
+
+            <p>
+                A cloud-based emergency blood donor management platform
+                connecting patients, hospitals and voluntary blood donors
+                during critical situations.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-btn" onclick="scrollToDonors()">
+                    🔎 Find a Blood Donor
+                </button>
+
+                <button class="secondary-btn" onclick="openRequest()">
+                    🚨 Request Blood
+                </button>
+
+            </div>
+
+            <div class="live-status">
+                <span class="pulse"></span>
+                System Online
+                <span class="divider"></span>
+                Donor network active
+            </div>
+
+        </div>
+
+
+        <div class="hero-visual">
+
+            <div class="blood-orb">
+
+                <div class="drop">🩸</div>
+
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
+
+            </div>
+
+            <div class="floating-card card-one">
+                <strong>1,284</strong>
+                <span>Active Donors</span>
+            </div>
+
+            <div class="floating-card card-two">
+                <strong>48</strong>
+                <span>Emergency Requests</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= STATISTICS ================= -->
+
+    <section class="statistics">
+
+        <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div>
+                <h2>1,284</h2>
+                <p>Registered Donors</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🩸</div>
+            <div>
+                <h2>8</h2>
+                <p>Blood Groups</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🚨</div>
+            <div>
+                <h2>48</h2>
+                <p>Active Requests</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">❤️</div>
+            <div>
+                <h2>3,672</h2>
+                <p>Lives Supported</p>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- ================= BLOOD GROUPS ================= -->
+
+    <section id="donors" class="section">
+
+        <div class="section-heading">
+
+            <span>QUICK SEARCH</span>
+
+            <h2>Find Blood Donors</h2>
+
+            <p>
+                Select a blood group to find available donors.
+            </p>
+
+        </div>
+
+
+        <div class="blood-grid">
+
+            <button class="blood-card" onclick="searchBlood('A+')">
+                <div>🩸</div>
+                <strong>A+</strong>
+                <span>214 Donors</span>
+            </button>
+
+            <button class="blood-card" onclick="searchBlood('A-')">
+                <div>🩸</div>
+                <strong>A−</strong>
+                <span>86 Donors</span>
+            </button>
+
+            <button class="blood-card" onclick="searchBlood('B+')">
+                <div>🩸</div>
+                <strong>B+</strong>
+                <span>302 Donors</span>
+            </button>
+
+            <button class="blood-card" onclick="searchBlood('B-')">
+                <div>🩸</div>
+                <strong>B−</strong>
+                <span>71 Donors</span>
+            </button>
+
+            <button class="blood-card" onclick="searchBlood('AB+')">
+                <div>🩸</div>
+                <strong>AB+</strong>
+                <span>54 Donors</span>
+            </button>
+
+            <button class="blood-card" onclick="searchBlood('AB-')">
+                <div>🩸</div>
+                <strong>AB−</strong>
+                <span>31 Donors</span>
+            </button>
+
+            <button class="blood-card" onclick="searchBlood('O+')">
+                <div>🩸</div>
+                <strong>O+</strong>
+                <span>398 Donors</span>
+            </button>
+
+            <button class="blood-card" onclick="searchBlood('O-')">
+                <div>🩸</div>
+                <strong>O−</strong>
+                <span>128 Donors</span>
+            </button>
+
+        </div>
+
+
+        <div id="search-result" class="search-result">
+
+            <h3>🔎 Search Result</h3>
+
+            <p>
+                Select a blood group above to search for available donors.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= EMERGENCY SECTION ================= -->
+
+    <section id="request" class="emergency-section">
+
+        <div class="emergency-content">
+
+            <div class="emergency-icon">
+                🚨
+            </div>
+
+            <div>
+
+                <span>EMERGENCY BLOOD REQUEST</span>
+
+                <h2>Need Blood Urgently?</h2>
+
+                <p>
+                    Create an emergency request and connect with compatible
+                    donors in your area.
+                </p>
+
+            </div>
+
+            <button class="emergency-button" onclick="openRequest()">
+                Create Emergency Request
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FEATURES ================= -->
+
+    <section id="about" class="section features-section">
+
+        <div class="section-heading">
+
+            <span>PLATFORM FEATURES</span>
+
+            <h2>Designed for Emergency Response</h2>
+
+            <p>
+                Everything needed to coordinate emergency blood donations.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🔎</div>
+
+                <h3>Smart Donor Search</h3>
+
+                <p>
+                    Quickly search donors based on blood group and
+                    availability.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🚨</div>
+
+                <h3>Emergency Requests</h3>
+
+                <p>
+                    Create urgent blood requests and notify compatible
+                    donors.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">☁️</div>
+
+                <h3>Cloud Ready</h3>
+
+                <p>
+                    Designed for cloud deployment with centralized
+                    information access.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🔐</div>
+
+                <h3>Secure Management</h3>
+
+                <p>
+                    Organized donor and request information for efficient
+                    emergency coordination.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-logo">
+            🩸 BloodConnect
+        </div>
+
+        <p>
+            Cloud-Based Emergency Blood Donor Management System
+        </p>
+
+        <p class="copyright">
+            © 2026 BloodConnect • Cloud Computing Mini Project
+        </p>
+
+    </footer>
+
+
+    <!-- ================= EMERGENCY MODAL ================= -->
+
+    <div id="requestModal" class="modal">
+
+        <div class="modal-box">
+
+            <button class="close-btn" onclick="closeRequest()">
+                ×
+            </button>
+
+            <div class="modal-icon">
+                🚨
+            </div>
+
+            <h2>Emergency Blood Request</h2>
+
+            <p>
+                Enter the required details to create an emergency request.
+            </p>
+
+
+            <form onsubmit="submitRequest(event)">
+
+                <label>Patient Name</label>
+
+                <input
+                    type="text"
+                    id="patientName"
+                    placeholder="Enter patient name"
+                    required
+                >
+
+
+                <label>Blood Group</label>
+
+                <select id="bloodGroup" required>
+
+                    <option value="">Select blood group</option>
+
+                    <option>A+</option>
+                    <option>A-</option>
+                    <option>B+</option>
+                    <option>B-</option>
+                    <option>AB+</option>
+                    <option>AB-</option>
+                    <option>O+</option>
+                    <option>O-</option>
+
+                </select>
+
+
+                <label>Units Required</label>
+
+                <input
+                    type="number"
+                    id="units"
+                    min="1"
+                    max="10"
+                    placeholder="Number of units"
+                    required
+                >
+
+
+                <label>Hospital / Location</label>
+
+                <input
+                    type="text"
+                    id="location"
+                    placeholder="Hospital or location"
+                    required
+                >
+
+
+                <button class="submit-btn" type="submit">
+                    🚨 Submit Emergency Request
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
